@@ -15,15 +15,19 @@ const register = async (req, res, next) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
 
-    if (existingUser && existingUser.verify) {
+    // if (existingUser && existingUser.verify)  {
+    //   throw httpError(409, "Email in use");
+    // }
+    if (existingUser && existingUser.verify || existingUser && !existingUser.verify)  {
       throw httpError(409, "Email in use");
     }
 
-    if (existingUser && !existingUser.verify) {
-      return res.status(201).json({
-        user: { name: existingUser.name, email: existingUser.email },
-      });
-    }
+    // if (existingUser && !existingUser.verify) {
+    //   return res.status(201).json({
+    //     user: { name: existingUser.name, email: existingUser.email },
+    //   });
+    // }
+
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
     const verificationToken = uuidv4();

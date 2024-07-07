@@ -24,7 +24,7 @@ const DevelopersPage = () => {
     dataDev && (
       <Container>
         <article className={s.page}>
-          <h1 className={s.title}>Smart Team</h1>
+          <h1 className={s.title}>Team OutFit</h1>
           <ul className={s.list}>{elements}</ul>
         </article>
       </Container>
