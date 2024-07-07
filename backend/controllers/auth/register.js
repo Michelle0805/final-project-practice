@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const { User } = require("../../models");
 const { v4: uuidv4 } = require("uuid");
 
-const { RequestError, sendEmail } = require("../../helpers");
+const { httpError, sendEmail } = require("../../helpers");
 
 const { APP_URL = "http://localhost:4000" } = process.env;
 
@@ -16,7 +16,7 @@ const register = async (req, res, next) => {
     const existingUser = await User.findOne({ email });
 
     if (existingUser && existingUser.verify) {
-      throw RequestError(409, "Email in use");
+      throw httpError(409, "Email in use");
     }
 
     if (existingUser && !existingUser.verify) {
@@ -37,7 +37,7 @@ const register = async (req, res, next) => {
     });
 
     await newUser.save();
-    const verificationUrl=`${APP_URL}/api/users/verificate/${verificationToken}`;
+    const verificationUrl=`${APP_URL}/api/users/verify/${verificationToken}`;
     // Prepare the email
     const mail = {
       to: email,

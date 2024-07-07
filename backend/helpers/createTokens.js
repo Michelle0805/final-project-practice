@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 
 const { SECRET_KEY } = process.env;
+// const { ACCESS_TOKEN_SECRET_KEY, REFRESH_TOKEN_SECRET_KEY } = process.env;
 
 const createTokens = async (id) => {
   const payload = {

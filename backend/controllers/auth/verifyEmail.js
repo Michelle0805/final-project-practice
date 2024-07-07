@@ -1,13 +1,13 @@
 const { User } = require("../../models/user");
-const { RequestError} = require("../../helpers");
+const { httpError} = require("../../helpers");
 const { createTokens } = require("../../helpers");
 const { SOCIAL_REDIRECT_URL } = process.env;
 
-const verificateEmail = async (req, res) => {
+const verifyEmail = async (req, res) => {
   const { verificationToken } = req.params;
   const user = await User.findOne({ verificationToken });
   if (!user) {
-    throw RequestError(404, "User not found");
+    throw httpError(404, "User not found");
   }
   if (!user.verify) {
     await User.findByIdAndUpdate(user._id, {
@@ -24,4 +24,4 @@ const verificateEmail = async (req, res) => {
   );
 };
 
-module.exports = verificateEmail;
+module.exports = verifyEmail;

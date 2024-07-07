@@ -1,5 +1,5 @@
 const { User } = require("../../models");
-const { RequestError } = require("../../helpers");
+const { httpError } = require("../../helpers");
 const { sendEmail } = require("../../helpers");
 const { v4: uuidv4 } = require("uuid");
 
@@ -14,7 +14,7 @@ const sendKey = async (req, res) => {
     }
   );
   if (!user) {
-    throw RequestError(404, "Not found");
+    throw httpError(404, "Not found");
   } else {
     const mail = {
       to: user.email,

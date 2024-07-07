@@ -1,6 +1,6 @@
 const { Product, User } = require("../../models");
 
-const { RequestError } = require("../../helpers");
+const { httpError } = require("../../helpers");
 
 const dailyIntakeControllerForUser = async (req, res, next) => {
   const { age, height, currentWeight, desiredWeight, bloodType } = req.body;
@@ -25,7 +25,7 @@ const dailyIntakeControllerForUser = async (req, res, next) => {
   console.log(result);
 
   if (!result) {
-    throw RequestError(404, "Not found");
+    throw httpError(404, "Not found");
   }
 
   const productCategories = result

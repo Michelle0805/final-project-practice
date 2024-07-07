@@ -1,5 +1,5 @@
 const { Product } = require("../../models");
-const { RequestError } = require("../../helpers");
+const { httpError } = require("../../helpers");
 
 const findOneProduct = async (req, res) => {
   const { product } = req.params;
@@ -9,7 +9,7 @@ const findOneProduct = async (req, res) => {
   );
 
   if (result.length < 1) {
-    throw RequestError(404, "Not found");
+    throw httpError(404, "Not found");
   }
   res.json(result);
 };

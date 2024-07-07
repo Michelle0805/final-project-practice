@@ -1,4 +1,4 @@
-const { RequestError } = require("../../helpers");
+const { httpError } = require("../../helpers");
 const { User } = require("../../models");
 
 const verifyKey = async (req, res) => {
@@ -11,7 +11,7 @@ const verifyKey = async (req, res) => {
     }
   );
   if (!user) {
-    throw RequestError(404, "Wrong key");
+    throw httpError(404, "Wrong key");
   } else {
     res.json({
       email: user.email,

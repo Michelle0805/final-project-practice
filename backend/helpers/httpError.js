@@ -7,10 +7,10 @@ const messages = {
   4011: "Email Not Verified",
 };
 
-const RequestError = (status, message = messages[status]) => {
+const httpError = (status, message = messages[status]) => {
   const error = new Error(message);
   error.status = status;
   return error;
 };
 
-module.exports = RequestError;
+module.exports = httpError;
